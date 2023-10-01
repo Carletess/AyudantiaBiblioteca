@@ -6,7 +6,7 @@ public class Libro {
     private String autor;
     private String editorial;
 
-    //constructor
+    // constructor
     public Libro(String nombre, String autor, String editorial){
         this.nombre = nombre;
         this.autor = autor;
