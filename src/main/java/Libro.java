@@ -4,9 +4,13 @@ public class Libro {
 	private String autor;
 	private String editorial;
 
-	public Libro Libro(String nombre, String autor, String editorial, String isbn) {
-		throw new UnsupportedOperationException();
+	public Libro(String nombre, String autor, String editorial, String isbn) {
+		this.nombre = nombre;
+		this.autor = autor;
+		this.editorial = editorial;
+		this.isbn = isbn;
 	}
+
 
 	public String getNombre() {
 		return this.nombre;

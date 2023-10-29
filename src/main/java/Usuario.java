@@ -5,8 +5,10 @@ public class Usuario {
 	private Biblioteca biblioteca;
 	private Prestamo prestamo;
 
-	public Usuario Usuario(String nombre, String rut, String numeroTelefonico) {
-		throw new UnsupportedOperationException();
+	public Usuario(String nombre, String rut, int numeroTelefonico) {
+		this.nombre = nombre;
+		this.rut = rut;
+		this.numeroTelefonico = numeroTelefonico;
 	}
 
 	public String getNombre() {

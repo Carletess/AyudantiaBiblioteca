@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+
 public class Prestamo {
 	private Date fechaInicio;
 	private Date fechaTermino;
@@ -7,8 +8,7 @@ public class Prestamo {
 	private Usuario usuario;
 	private Bibliotecario bibliotecario;
 
-	public Prestamo Prestamo(Bibliotecario bibliotecario, Usuario usuario, Date fechaInicio, Date fechaTermino, Libro libro) {
-		throw new UnsupportedOperationException();
+	public Prestamo() {
 	}
 
 	public Bibliotecario getBibliotecario() {
@@ -44,10 +44,11 @@ public class Prestamo {
 	}
 
 	public Libro getLibro() {
-		throw new UnsupportedOperationException();
+		return libro.get(0);
 	}
 
 	public void setLibro(Libro libro) {
-		throw new UnsupportedOperationException();
+		this.libro.add(libro);
 	}
+
 }

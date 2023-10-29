@@ -6,9 +6,13 @@ public class Bibliotecario {
 	private Biblioteca biblioteca;
 	private Prestamo prestamo;
 
-	public Bibliotecario Bibliotecario(String nombre, String rut, String direccion, int id) {
-		throw new UnsupportedOperationException();
+	public Bibliotecario(String nombre, String rut, String direccion, int id) {
+		this.nombre = nombre;
+		this.rut = rut;
+		this.direccion = direccion;
+		this.id = id;
 	}
+
 
 	public String getNombre() {
 		return this.nombre;
