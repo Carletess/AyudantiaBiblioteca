@@ -1,21 +1,19 @@
-public class Bibliotecario {
-	private String nombre;
-	private String rut;
+package modelo;
+
+public class Bibliotecario extends Persona{
 	private String direccion;
 	private int id;
 	private Biblioteca biblioteca;
 	private Prestamo prestamo;
 
 	public Bibliotecario(String nombre, String rut, String direccion, int id) {
-		this.nombre = nombre;
-		this.rut = rut;
+		super(nombre, rut);
 		this.direccion = direccion;
 		this.id = id;
 	}
 
-
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -44,5 +42,13 @@ public class Bibliotecario {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Prestamo getPrestamo() {
+		return prestamo;
+	}
+
+	public String toString(){
+		return super.nombre+","+super.rut+","+this.id;
 	}
 }

@@ -1,3 +1,8 @@
+package modelo;
+
+import modelo.Bibliotecario;
+import modelo.Libro;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,7 +13,12 @@ public class Prestamo {
 	private Usuario usuario;
 	private Bibliotecario bibliotecario;
 
-	public Prestamo() {
+	public Prestamo(Date fechaInicio, Date fechaTermino, ArrayList<Libro> libros, Usuario usuario, Bibliotecario bibliotecario) {
+		this.fechaInicio = fechaInicio;
+		this.fechaTermino = fechaTermino;
+		this.libro = libros;
+		this.usuario = usuario;
+		this.bibliotecario = bibliotecario;
 	}
 
 	public Bibliotecario getBibliotecario() {

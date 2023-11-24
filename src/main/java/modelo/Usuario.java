@@ -1,18 +1,18 @@
-public class Usuario {
-	private String nombre;
-	private String rut;
-	private int numeroTelefonico;
-	private Biblioteca biblioteca;
+package modelo;
+
+import modelo.Prestamo;
+
+public class Usuario extends Persona {
+	private String numeroTelefonico;
 	private Prestamo prestamo;
 
-	public Usuario(String nombre, String rut, int numeroTelefonico) {
-		this.nombre = nombre;
-		this.rut = rut;
+	public Usuario(String nombre, String rut, String numeroTelefonico) {
+		super(nombre, rut);
 		this.numeroTelefonico = numeroTelefonico;
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -27,11 +27,11 @@ public class Usuario {
 		this.rut = rut;
 	}
 
-	public int getNumeroTelefonico() {
+	public String getNumeroTelefonico() {
 		return this.numeroTelefonico;
 	}
 
-	public void setNumeroTelefonico(int numeroTelefonico) {
+	public void setNumeroTelefonico(String numeroTelefonico) {
 		this.numeroTelefonico = numeroTelefonico;
 	}
 }
