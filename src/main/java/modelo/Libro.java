@@ -6,7 +6,6 @@ public class Libro {
 	private String autor;
 	private String editorial;
 	private Especialidad especialidad;
-	private boolean disponible;
 
 
 	// Constructor actualizado
@@ -24,8 +23,6 @@ public class Libro {
 		this.editorial = "Sin datos";
 		this.autor = "Sin datos";
 		this.especialidad = null;
-		this.disponible = false;
-
 	}
 
 	// Métodos getters y setters
@@ -38,11 +35,9 @@ public class Libro {
 		return this.isbn;
 	}
 
-
 	public String getAutor() {
 		return this.autor;
 	}
-
 
 	public String getEditorial() {
 		return this.editorial;
@@ -52,13 +47,8 @@ public class Libro {
 		return especialidad;
 	}
 
-
-
-	public boolean isDisponible() {
-		return this.disponible;
-	}
-
-	public void setDisponible(boolean disponible) {
-		this.disponible = disponible;
+	@Override
+	public String toString(){
+		return this.nombre + "," + this.isbn + "," + this.autor + ","+this.editorial + "," + this.especialidad;
 	}
 }

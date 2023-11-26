@@ -106,15 +106,10 @@ public class ValidadorRut {
         else{
             return false;
         }
-
     }
-
-
-
 
     public static void main(String[] args) {
         System.out.println(calcularDigito("21024150"));
-
     }
 
 }

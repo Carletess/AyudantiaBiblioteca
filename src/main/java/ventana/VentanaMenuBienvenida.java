@@ -76,27 +76,27 @@ public class VentanaMenuBienvenida extends Ventana {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.botonAgregarLibro) {
-            VentanaAgregarLibro ventanaAgregarLibro= new VentanaAgregarLibro(biblioteca);
-            //Cierra la ventana actual
+            VentanaAgregarLibro ventanaAgregarLibro = new VentanaAgregarLibro(biblioteca);
+            // Cierra la ventana actual
             this.dispose();
         }
 
-        if(e.getSource() == this.botonAgregarUsuario){
-            VentanaAgregarUsuario ventanaAgregarUsuario= new VentanaAgregarUsuario(biblioteca);
+        if (e.getSource() == this.botonAgregarUsuario) {
+            VentanaAgregarUsuario ventanaAgregarUsuario = new VentanaAgregarUsuario(biblioteca);
             this.dispose();
         }
 
-        if(e.getSource() == this.botonBuscarLibro){
-            VentanaBuscarLibro ventanaBuscarLibro= new VentanaBuscarLibro(biblioteca);
+        if (e.getSource() == this.botonBuscarLibro) {
+            VentanaBuscarLibro ventanaBuscarLibro = new VentanaBuscarLibro(biblioteca);
             this.dispose();
         }
 
-        if(e.getSource() == this.botonBuscarLibro){
-            VentanaBuscarUsuario ventanaBuscarUsuario= new VentanaBuscarUsuario(biblioteca);
+        if (e.getSource() == this.botonBuscarUsuario) {
+            VentanaBuscarUsuario ventanaBuscarUsuario = new VentanaBuscarUsuario(biblioteca);
             this.dispose();
         }
 
-        if(e.getSource() == this.botonSalida){
+        if (e.getSource() == this.botonSalida) {
             BibliotecaController.almacenarDatos(this.biblioteca);
             this.dispose();
             System.exit(0);

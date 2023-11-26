@@ -1,7 +1,6 @@
 package ventana;
 
 import modelo.Biblioteca;
-import modelo.Especialidad;
 import modelo.Libro;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ import java.util.List;
 public class VentanaBuscarLibro extends Ventana {
     private JButton botonBuscar, botonRegresar;
     private JLabel textoEncabezado, textoNombre;
-    private JComboBox listaEspecialidad;
     private JTextField campoNombre;
     private Biblioteca biblioteca;
 
@@ -24,19 +22,19 @@ public class VentanaBuscarLibro extends Ventana {
 
     private void generarElementosVentana() {
         generarCampoNombre();
-        generarBotonBuscarVehiculo();
+        generarBotonBuscarLibro();
         generarBotonCancelar();
     }
 
-    private void generarCampoNombre(){
-        String textoNombre= "Nombre Libro:";
-        super.generarJLabel(this.textoNombre,textoNombre,20,50,150,20);
-        this.campoNombre= super.generarJTextField(200,50,250,20);
+    private void generarCampoNombre() {
+        String textoNombre = "Nombre Libro:";
+        super.generarJLabel(this.textoNombre, textoNombre, 20, 50, 150, 20);
+        this.campoNombre = super.generarJTextField(200, 50, 250, 20);
         this.add(this.campoNombre);
     }
 
-    private void generarBotonBuscarVehiculo() {
-        String textoBoton= "Buscar Libro";
+    private void generarBotonBuscarLibro() {
+        String textoBoton = "Buscar Libro";
         this.botonBuscar = super.generarBoton(textoBoton, 75, 400, 150, 20);
         this.add(this.botonBuscar);
         this.botonBuscar.addActionListener(this);
@@ -48,34 +46,53 @@ public class VentanaBuscarLibro extends Ventana {
         this.add(this.botonRegresar);
         this.botonRegresar.addActionListener(this);
     }
-    private String[][] registrarLibro(){
-        List<Libro> libros= new ArrayList<>();
-        String[][] datosLibros;
-        if(this.campoNombre.getText().length()==0){
-            System.out.println(this.listaEspecialidad.getSelectedItem());
-            libros = biblioteca.obtenerLibroPorEspecialidad((Especialidad) this.listaEspecialidad.getSelectedItem());
+
+    private String[][] buscarLibroPorNombre(String nombreLibro) {
+        List<Libro> libros = biblioteca.getLibros();
+        List<String[]> datosLibros = new ArrayList<>();
+
+        for (Libro libro : libros) {
+            if (libro.getNombre().equals(nombreLibro)) {
+                // Si el nombre del libro coincide, se agrega la información del libro a la lista
+                String[] datosLibro = new String[5];
+                datosLibro[0] = libro.getNombre();
+                datosLibro[1] = libro.getEspecialidad().getEspecialidad();
+                datosLibro[2] = libro.getIsbn();
+                datosLibro[3] = libro.getAutor();
+                datosLibro[4] = libro.getEditorial();
+
+                datosLibros.add(datosLibro);
+            }
         }
 
-        System.out.println(libros.size());
-        datosLibros = new String[libros.size()][5];
-        for(int i=0; i < libros.size(); i++){
-            datosLibros[i][0]=libros.get(i).getNombre();
-            datosLibros[i][1]=libros.get(i).getEspecialidad().getEspecialidad();
-            datosLibros[i][2]=libros.get(i).getIsbn();
-            datosLibros[i][3]=libros.get(i).getAutor();
-            datosLibros[i][4]=libros.get(i).getEditorial();
+        // Convertir la lista de datos de libros a una matriz
+        String[][] resultado = new String[datosLibros.size()][5];
+        for (int i = 0; i < datosLibros.size(); i++) {
+            resultado[i] = datosLibros.get(i);
         }
-        return datosLibros;
+
+        return resultado;
     }
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.botonBuscar){
-            String[] nombreColumnas={"Nombre","Especialidad","ISBN","Autor","Editorial"};
-            VentanaTabla ventanaTabla = new VentanaTabla(registrarLibro(),nombreColumnas);
+
+    private String[][] registrarLibros() {
+        String nombreBuscado = this.campoNombre.getText();
+
+        if (nombreBuscado.isEmpty()) {
+            return new String[0][0];
         }
-        if (e.getSource() == this.botonRegresar){
+
+        // Llama al método buscarUsuarioPorRut para obtener la información del usuario encontrado
+        return buscarLibroPorNombre(nombreBuscado);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.botonBuscar) {
+            String[] nombreColumnas = {"Nombre", "ISBN", "Autor", "Editorial", "Especialidad"};
+            VentanaTabla ventanaTabla = new VentanaTabla(registrarLibros(), nombreColumnas);
+        }
+        if (e.getSource() == this.botonRegresar) {
             VentanaMenuBienvenida ventanaMenuBienvenida = new VentanaMenuBienvenida(biblioteca);
             this.dispose();
         }
-
     }
 }

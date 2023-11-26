@@ -49,28 +49,44 @@ public class VentanaBuscarUsuario extends Ventana {
         this.add(this.botonRegresar);
         this.botonRegresar.addActionListener(this);
     }
-    private String[][] registrarVehiculo(){
-        List<Usuario> usuarios= new ArrayList<>();
-        String[][] datosUsuarios;
+    private String[][] buscarUsuarioPorRut(String rut) {
+        List<Usuario> usuarios = biblioteca.getUsuarios();
+        String[][] datosUsuario = new String[1][3];
 
-        System.out.println(usuarios.size());
-        datosUsuarios = new String[usuarios.size()][3];
-        for(int i=0; i < usuarios.size(); i++){
-            datosUsuarios[i][0]=usuarios.get(i).getNombre();
-            datosUsuarios[i][1]=usuarios.get(i).getRut();
-            datosUsuarios[i][2]= usuarios.get(i).getNumeroTelefonico();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getRut().equals(rut)) {
+                // Si el RUT coincide, se agrega la información del usuario a la matriz
+                datosUsuario[0][0] = usuario.getNombre();
+                datosUsuario[0][1] = usuario.getRut();
+                datosUsuario[0][2] = usuario.getNumeroTelefonico();
+                break;  // Termina la búsqueda después de encontrar el usuario
+            }
         }
-        return datosUsuarios;
+        return datosUsuario;
     }
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.botonBuscar){
-            String[] nombreColumnas={"Nombre", "Rut", "Numero telefónico"};
-            VentanaTabla ventanaTabla = new VentanaTabla(registrarVehiculo(),nombreColumnas);
+
+
+    private String[][] registrarUsuarios() {
+        String rutBuscado = this.campoRut.getText();
+
+        if (rutBuscado.isEmpty()) {
+            // Si el campo de RUT está vacío, mostrar un mensaje de error o manejar de alguna manera
+            return new String[0][0];
         }
-        if (e.getSource() == this.botonRegresar){
+
+        // Llama al método buscarUsuarioPorRut para obtener la información del usuario encontrado
+        return buscarUsuarioPorRut(rutBuscado);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.botonBuscar) {
+            String[] nombreColumnas = {"Nombre", "Rut", "Numero telefónico"};
+            VentanaTabla ventanaTabla = new VentanaTabla(registrarUsuarios(), nombreColumnas);
+        }
+        if (e.getSource() == this.botonRegresar) {
             VentanaMenuBienvenida ventanaMenuBienvenida = new VentanaMenuBienvenida(biblioteca);
             this.dispose();
         }
-
     }
+
 }

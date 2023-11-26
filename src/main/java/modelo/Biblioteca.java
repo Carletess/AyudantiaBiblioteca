@@ -12,12 +12,15 @@ public class Biblioteca {
 	private String direccion;
 	private Bibliotecario bibliotecario;
 	private ArrayList<Libro> libros;
-	private ArrayList<Usuario> usuarios = new ArrayList<>();
+	private ArrayList<Usuario> usuarios;
 	private ArrayList<Bibliotecario> bibliotecarios;
 
 	public Biblioteca(String nombre, String direccion) {
 		this.nombre = nombre;
 		this.direccion = direccion;
+		this.libros = new ArrayList<>();
+		this.usuarios = new ArrayList<>();
+		this.bibliotecarios = new ArrayList<>();
 	}
 
 	public void agregarBibliotecario(String nombre, String rut, String direccion, int idBibliotecario) {
@@ -34,13 +37,15 @@ public class Biblioteca {
 
 	public Persona buscarUsuario(String rut) {
 		Persona usuario = null;
+
 		for (Usuario usuarioAux : this.usuarios) {
 			if (usuarioAux.getRut().equals(rut)) {
 				usuario = usuarioAux;
 				break;
 			}
 		}
-		if(usuario == null){
+
+		if (usuario == null && this.bibliotecarios != null) {
 			for (Bibliotecario bibliotecarioAux : this.bibliotecarios) {
 				if (bibliotecarioAux.getRut().equals(rut)) {
 					usuario = bibliotecarioAux;
@@ -48,6 +53,7 @@ public class Biblioteca {
 				}
 			}
 		}
+
 		return usuario;
 	}
 
@@ -59,14 +65,15 @@ public class Biblioteca {
 	}
 
 	public boolean agregarUsuario(String nombre, String rut, String numeroTelefonico) {
-		if (ValidadorRut.validarDigito(rut) && this.buscarUsuario(rut)==null) {
-			Usuario usuario = new Usuario(nombre,rut,numeroTelefonico);
+		if (ValidadorRut.validarDigito(rut) && this.buscarUsuario(rut) == null) {
+			Usuario usuario = new Usuario(nombre, rut, numeroTelefonico);
 			this.usuarios.add(usuario);
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 
 	public ArrayList<Libro> obtenerLibrosPorAutor(String autor) {
 		ArrayList<Libro> librosDelAutor = new ArrayList<>();
@@ -80,13 +87,15 @@ public class Biblioteca {
 	}
 
 	public List<Libro> obtenerLibroPorNombre(String nombreLibro) {
-		List<Libro> libros = new ArrayList<Libro>();
-		for (Libro libro : libros) {
+		List<Libro> librosEncontrados = new ArrayList<>();
+
+		for (Libro libro : this.libros) {
 			if (libro.getNombre().equals(nombreLibro)) {
-				libros.add(libro);
+				librosEncontrados.add(libro);
 			}
 		}
-		return libros;
+
+		return librosEncontrados;
 	}
 
 	public List<Libro> obtenerLibroPorEspecialidad(Especialidad especialidad) {

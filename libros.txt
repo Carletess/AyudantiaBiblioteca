@@ -1,0 +1,2 @@
+nombre,isbn,autor,editorial,especialidad
+harry potter,999,jk,magica,CIENCIA FICCION

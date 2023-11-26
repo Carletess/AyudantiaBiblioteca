@@ -77,24 +77,35 @@ public class GestorDatos {
     public static boolean registrarDatos(List objetos, String direccionArchivo) {
         try {
             File file = new File(direccionArchivo);
-            if (Files.deleteIfExists(Paths.get("C:\\Usuarios\\carlo\\Documents\\" + direccionArchivo))) {
+
+            // Elimina el archivo existente, si es posible
+            if (file.exists() && file.delete()) {
                 System.out.println("El fichero ha sido borrado satisfactoriamente");
             } else {
                 System.out.println("El fichero no puede ser borrado");
             }
-            File fichero = new File(direccionArchivo);
-            fichero.createNewFile();
-            FileWriter fw = new FileWriter(fichero, true);
+
+            // Crea un nuevo archivo
+            if (file.createNewFile()) {
+                System.out.println("Se ha creado un nuevo archivo");
+            } else {
+                System.out.println("No se pudo crear el nuevo archivo");
+            }
+
+            FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
+
+            // Escribe los datos en el nuevo archivo
             for (Object objeto : objetos) {
                 bw.write(objeto.toString());
                 bw.newLine();
             }
+
             bw.close();
             fw.close();
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error al registrar datos, favor contactar con administrador");
             return false;
         }
     }

@@ -34,4 +34,11 @@ public class Usuario extends Persona {
 	public void setNumeroTelefonico(String numeroTelefonico) {
 		this.numeroTelefonico = numeroTelefonico;
 	}
+
+	// En la clase Usuario
+	@Override
+	public String toString() {
+		return nombre + "," + rut + "," + numeroTelefonico;
+	}
+
 }

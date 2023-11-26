@@ -64,7 +64,7 @@ public class VentanaAgregarLibro extends Ventana {
     }
 
     private void generarCampoEditorial() {
-        super.generarJLabel(this.textoAutor, "Editorial:", 20, 250, 200, 20);
+        super.generarJLabel(this.textoEditorial, "Editorial:", 20, 250, 200, 20);
         this.campoEditorial = super.generarJTextField(200, 250, 250, 20);
         this.add(this.campoEditorial);
     }
@@ -82,19 +82,37 @@ public class VentanaAgregarLibro extends Ventana {
         this.botonCancelar.addActionListener(this);
     }
 
-    private boolean registrarLibro(){
-        if(this.campoNombre.getText().length()==0 || this.campoISBN.getText().length()==0 || this.campoAutor.getText().length()==0 || this.campoEditorial.getText().length()==0 || this.listaEspecialidad.getSelectedItem()==null){
+    private boolean registrarLibro() {
+        if (this.campoNombre.getText().isEmpty() || this.campoISBN.getText().isEmpty() ||
+                this.campoAutor.getText().isEmpty() || this.campoEditorial.getText().isEmpty() ||
+                this.listaEspecialidad.getSelectedItem() == null) {
             return false;
-        }
-        else{
-            return true;
+        } else {
+            try {
+                String nombre = this.campoNombre.getText();
+                String isbn = this.campoISBN.getText();
+                String autor = this.campoAutor.getText();
+                String editorial = this.campoEditorial.getText();
+
+                // Obtén la especialidad seleccionada como String desde la lista desplegable
+                String especialidadSeleccionada = (String) this.listaEspecialidad.getSelectedItem();
+
+                // Convierte el String a un elemento del enum Especialidad
+                Especialidad especialidad = Especialidad.valueOf(especialidadSeleccionada.replace(" ", "_").toUpperCase());
+
+                biblioteca.agregarLibro(nombre, isbn, autor, editorial, especialidad);
+                return true;
+            } catch (IllegalArgumentException e) {
+                // Manejo de excepciones si la conversión falla (por ejemplo, si el String no coincide con ningún valor del enum)
+                return false;
+            }
         }
     }
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.botonRegistrar){
             if(registrarLibro()){
-                biblioteca.agregarLibro(this.campoNombre.getText(), this.campoISBN.getText(), this.campoAutor.getText(), this.campoEditorial.getText(), (Especialidad) this.listaEspecialidad.getSelectedItem());
+                Especialidad especialidad = Especialidad.valueOf(((String) this.listaEspecialidad.getSelectedItem()).replace(" ", "_").toUpperCase());
                 JOptionPane.showMessageDialog(this,"Libro registrado correctamente","Mensaje de confirmación",
                         JOptionPane.INFORMATION_MESSAGE);
                 VentanaMenuBienvenida ventanaMenuBienvenida = new VentanaMenuBienvenida(biblioteca);
